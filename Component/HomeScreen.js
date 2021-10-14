@@ -5,19 +5,18 @@ import { Log_Out } from "../Redux/ActionsCreator";
 function HomeScreen({ navigation }) {
   const islogedin = useSelector((state) => state.logreducer.isLoggedIn);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if(islogedin){
-      navigation.replace("login")
-    }
-  }, [islogedin]);
+  // useEffect(() => {
+  //   if(islogedin){
+  //     navigation.replace("login")
+  //   }
+  // }, [islogedin]);
 
   const LogOutHandler = () => {
     dispatch(Log_Out());
-    if (islogedin){
-      navigation.replace("login")
+    if (islogedin) {
+      navigation.replace("login");
     }
   };
-  console.log(islogedin)
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>welcome to home screen</Text>

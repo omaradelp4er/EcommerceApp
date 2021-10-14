@@ -2,7 +2,7 @@ import React from "react";
 import { Loading, LoginFailed, LoginSuccess,LogOut } from "./Actions";
 var message;
 export const TryLogin =(email,password) => (dispatch) =>  {
-  //   dispatch(Loading());
+    dispatch(LOADING());
   fetch("https://jsonplaceholder.typicode.com/posts/1/comments", {
     method: "Get",
   })
@@ -22,6 +22,11 @@ export const TryLogin =(email,password) => (dispatch) =>  {
         dispatch(Login_Failed(message));
       }
     });
+};
+export const LOADING = () => {
+    return {
+      type: Loading,
+    };
 };
 const Login_Success = (user) => {
   return {

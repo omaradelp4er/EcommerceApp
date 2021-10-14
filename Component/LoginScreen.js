@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { TryLogin } from "../Redux/ActionsCreator";
+import { LoadingScreen } from "./LoadingScreen";
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const isloggedin = useSelector((state) => state.logreducer.isLoggedIn);
+  const isloading = useSelector((state) => state.logreducer.Loading);
   useEffect(() => {
     if (isloggedin) {
       navigation.replace("home");
@@ -15,6 +17,7 @@ function LoginScreen({ navigation }) {
   const LoginHandler = () => {
     dispatch(TryLogin(email, password));
   };
+  const loader = isloading ? <LoadingScreen/> : <View></View>;
   return (
     <View style={styles.container}>
       <View>
@@ -36,6 +39,7 @@ function LoginScreen({ navigation }) {
       <View>
         <Button title="Login" onPress={LoginHandler} />
       </View>
+      <View>{loader}</View>
     </View>
   );
 }
