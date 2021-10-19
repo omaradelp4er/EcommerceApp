@@ -1,30 +1,14 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import {
-    Spinner,
-    VStack,
-    Center,
-    NativeBaseProvider,
-  } from "native-base"
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+
 export function LoadingScreen() {
   return (
-    <VStack space={4} alignItems="center">
-      {/* <Heading textAlign="center" mb="10">
-        Sizes
-      </Heading> */}
-      <Spinner size="lg" />
-    </VStack>
+    <View style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator />
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
   );
 }
-export const Example = () => {
-  return (
-    <NativeBaseProvider>
-    <Center flex={1} px="3">
-      <Example />
-    </Center>
-  </NativeBaseProvider>
-  );
-};
 const styles = StyleSheet.create({
   container: {
     flex: 1,

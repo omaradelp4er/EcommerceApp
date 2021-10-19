@@ -1,12 +1,12 @@
 import React from "react";
 import PRODUCTS from "../../Data/4.1 dummy-data";
-import { Loading, LoginFailed, LoginSuccess,LogOut } from "../Actions";
+import { Loading, LoginFailed, LoginSuccess, LogOut } from "../Actions";
 const initialState = {
   user: {},
   Loading: false,
   isLoggedIn: false,
   message: "",
-  availableProduct: [],
+  availableProduct: PRODUCTS,
 };
 
 export const LoginReducer = (state = initialState, action) => {
@@ -28,10 +28,9 @@ export const LoginReducer = (state = initialState, action) => {
         isLoggedIn: false,
       };
     }
-    case LoginFailed:
-      {
-        return { Loading: false, isLoggedIn: false, message: action.payload };
-      }
+    case LoginFailed: {
+      return { Loading: false, isLoggedIn: false, message: action.payload };
+    }
 
     default:
       return state;

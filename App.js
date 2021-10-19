@@ -12,24 +12,42 @@ import DetailsScreen from "./Component/DetailsScreen";
 import LoadingScreen from "./Component/LoadingScreen";
 import { combineReducers } from "redux";
 import { LoginReducer } from "./Redux/Reducers/LoginReducer";
-
-const Reducer = combineReducers({
+import { CartReducer } from "./Redux/Reducers/CartReducer";
+import CartScreen from "./Component/CartScreen";
+const RootReducer = combineReducers({
   logreducer: LoginReducer,
+  cartreducer: CartReducer,
 });
 const Stack = createNativeStackNavigator();
 const store = createStore(
-  Reducer,
+  RootReducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
-export default function App() {
+export default function App({ navigation }) {
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="login" component={LoginScreen} />
-          <Stack.Screen name="home" component={HomeScreen} />
+          <Stack.Screen
+           options={{
+            title: 'All Product',
+            headerStyle: {
+              backgroundColor: '#f4511e',
+              alignItems: 'center',
+              justifyContent: 'center'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+            name="home"
+            component={HomeScreen}
+          />
           <Stack.Screen name="details" component={DetailsScreen} />
           <Stack.Screen name="loading" component={LoadingScreen} />
+          <Stack.Screen name="cart" component={CartScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
@@ -37,9 +55,6 @@ export default function App() {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

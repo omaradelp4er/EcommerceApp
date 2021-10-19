@@ -1,8 +1,15 @@
 import React from "react";
-import { Loading, LoginFailed, LoginSuccess,LogOut } from "./Actions";
+import {
+  Loading,
+  LoginFailed,
+  LoginSuccess,
+  LogOut,
+  AddItem,
+  DeleteItem,
+} from "../Actions";
 var message;
-export const TryLogin =(email,password) => (dispatch) =>  {
-    dispatch(LOADING());
+export const TryLogin = (email, password) => (dispatch) => {
+  dispatch(LOADING());
   fetch("https://jsonplaceholder.typicode.com/posts/1/comments", {
     method: "Get",
   })
@@ -24,9 +31,9 @@ export const TryLogin =(email,password) => (dispatch) =>  {
     });
 };
 export const LOADING = () => {
-    return {
-      type: Loading,
-    };
+  return {
+    type: Loading,
+  };
 };
 const Login_Success = (user) => {
   return {

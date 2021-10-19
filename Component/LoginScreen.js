@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { TryLogin } from "../Redux/ActionsCreator";
+import { TryLogin } from "../Redux/ActionCreators/LoginActionsCreator";
 import { LoadingScreen } from "./LoadingScreen";
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -9,6 +9,7 @@ function LoginScreen({ navigation }) {
   const [password, setpassword] = useState("");
   const isloggedin = useSelector((state) => state.logreducer.isLoggedIn);
   const isloading = useSelector((state) => state.logreducer.Loading);
+  const message = useSelector((state) => state.logreducer.message);
   useEffect(() => {
     if (isloggedin) {
       navigation.replace("home");
@@ -17,7 +18,14 @@ function LoginScreen({ navigation }) {
   const LoginHandler = () => {
     dispatch(TryLogin(email, password));
   };
-  const loader = isloading ? <LoadingScreen/> : <View></View>;
+  debugger;
+  const loader = isloading ? (
+    <LoadingScreen />
+  ) : (
+    <View>
+      <Text style={{ color: "red" }}>{message}</Text>
+    </View>
+  );
   return (
     <View style={styles.container}>
       <View>

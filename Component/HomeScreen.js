@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-import { Text, View, Button, FlatList } from "react-native";
+import { View, Button, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Log_Out } from "../Redux/ActionsCreator";
-function HomeScreen({ navigation }) {
+import ProductItem from "./Shop/ProductItem";
+import { Log_Out } from "../Redux/ActionCreators/LoginActionsCreator";
+import { Add_Item } from "../Redux/ActionCreators/CartActionCreator";
+function HomeScreen({ navigation }, { porps }) {
   const islogedin = useSelector((state) => state.logreducer.isLoggedIn);
+  const products = useSelector((state) => state.logreducer.availableProduct);
   const dispatch = useDispatch();
   // useEffect(() => {
   //   if(islogedin){
@@ -11,20 +14,54 @@ function HomeScreen({ navigation }) {
   //   }
   // }, [islogedin]);
 
+
   const LogOutHandler = () => {
     dispatch(Log_Out());
     if (islogedin) {
       navigation.replace("login");
     }
   };
+  // const AddToCartHandler = product => {
+  //   dispatch(Add_Item(product));
+  // };
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={LogOutHandler} title="LogOut" color="black" />
+      ),
+      headerLeft: () => (
+        <Button
+          onPress={() => navigation.navigate("cart")}
+          title="Cart"
+          color="black"
+        />
+      ),
+    });
+  }, [navigation]);
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>welcome to home screen</Text>
-      <Button
-        title="go to details"
-        onPress={() => navigation.push("details")}
+    <View
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <FlatList
+        data={products}
+        renderItem={(itemdata) => (
+          <ProductItem
+            image={itemdata.item.imageUrl}
+            title={itemdata.item.title}
+            price={itemdata.item.price}
+            onViewDetails={() => {
+              navigation.navigate("details", {
+                productId: itemdata.item.id,
+              });
+            }}
+            onAddToCart={()=>{}}
+          />
+        )}
       />
-      <Button title="Logout" onPress={LogOutHandler} />
     </View>
   );
 }
