@@ -7,9 +7,10 @@ import {
   Button,
   StyleSheet,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Add_Item } from "../Redux/ActionCreators/CartActionCreator";
 function DetailsScreen({ route, navigation }, props) {
+  const dispatch = useDispatch();
   const { productId } = route.params;
   const product = useSelector((state) =>
     state.logreducer.availableProduct.find((prod) => prod.id == productId)
@@ -18,14 +19,20 @@ function DetailsScreen({ route, navigation }, props) {
   navigation.setOptions({
     headerTitle: product.title,
   });
-  const AddToCartHandler = product => {
-    // dispatch(Add_Item(product));
+  const AddToCartHandler = (product) => {
+    dispatch(Add_Item(product));
   };
   return (
     <ScrollView>
       <Image style={styles.image} source={{ uri: product.imageUrl }} />
       <View style={styles.actions}>
-        <Button color={"black"} title="Add to Cart" onPress={AddToCartHandler(product)} />
+        <Button
+          color={"black"}
+          title="Add to Cart"
+          onPress={() => {
+            AddToCartHandler(product);
+          }}
+        />
       </View>
       <Text style={styles.price}>$ {product.price.toFixed(2)}</Text>
       <Text style={styles.description}> {product.description}</Text>

@@ -1,5 +1,5 @@
 import React from "react";
-import { AddItem, DeleteItem } from "../Actions";
+import { AddItem, DeleteItem, AddOneItem } from "../Actions";
 
 export const Add_Item = (product) => {
   return {
@@ -7,9 +7,15 @@ export const Add_Item = (product) => {
     payload: product,
   };
 };
-export const Delete_Item = (product) => {
+export const Delete_Item = (pid) => {
   return {
     type: DeleteItem,
-    payload: product,
+    payload: pid,
+  };
+};
+export const AddOne_Item = (pid) => {
+  return {
+    type: AddOneItem,
+    payload: pid,
   };
 };

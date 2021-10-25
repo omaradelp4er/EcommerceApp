@@ -1,12 +1,4 @@
-import React from "react";
-import {
-  Loading,
-  LoginFailed,
-  LoginSuccess,
-  LogOut,
-  AddItem,
-  DeleteItem,
-} from "../Actions";
+import { Loading, LoginFailed, LoginSuccess, LogOut } from "../Actions";
 var message;
 export const TryLogin = (email, password) => (dispatch) => {
   dispatch(LOADING());

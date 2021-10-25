@@ -1,4 +1,3 @@
-import React from "react";
 import PRODUCTS from "../../Data/4.1 dummy-data";
 import { Loading, LoginFailed, LoginSuccess, LogOut } from "../Actions";
 const initialState = {

@@ -1,41 +1,40 @@
-import React, { useEffect } from "react";
-import { View, Button, FlatList } from "react-native";
+import React from "react";
+import { View, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "./Shop/ProductItem";
-import { Log_Out } from "../Redux/ActionCreators/LoginActionsCreator";
 import { Add_Item } from "../Redux/ActionCreators/CartActionCreator";
-function HomeScreen({ navigation }, { porps }) {
-  const islogedin = useSelector((state) => state.logreducer.isLoggedIn);
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../Component/Shop/HeaderButton";
+
+function HomeScreen({ navigation }) {
   const products = useSelector((state) => state.logreducer.availableProduct);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if(islogedin){
-  //     navigation.replace("login")
-  //   }
-  // }, [islogedin]);
-
-
-  const LogOutHandler = () => {
-    dispatch(Log_Out());
-    if (islogedin) {
-      navigation.replace("login");
-    }
+  const AddToCartHandler = (product) => {
+    dispatch(Add_Item(product));
   };
-  // const AddToCartHandler = product => {
-  //   dispatch(Add_Item(product));
-  // };
   React.useLayoutEffect(() => {
     navigation.setOptions({
+      headertitle: "All Product",
       headerRight: () => (
-        <Button onPress={LogOutHandler} title="LogOut" color="black" />
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Cart"
+            iconName={"md-cart"}
+            onPress={() => {
+              navigation.navigate("cart");
+            }}
+          />
+        </HeaderButtons>
       ),
-      headerLeft: () => (
-        <Button
-          onPress={() => navigation.navigate("cart")}
-          title="Cart"
-          color="black"
-        />
-      ),
+      title: "All Product",
+      headerStyle: {
+        backgroundColor: "#f4511e",
+      },
+      headerTitleStyle: {
+        position: "absolute",
+        backgroundColor: "transparent",
+        textAlign: "center",
+      },
     });
   }, [navigation]);
   return (
@@ -58,7 +57,9 @@ function HomeScreen({ navigation }, { porps }) {
                 productId: itemdata.item.id,
               });
             }}
-            onAddToCart={()=>{}}
+            onAddToCart={() => {
+              AddToCartHandler(itemdata.item);
+            }}
           />
         )}
       />

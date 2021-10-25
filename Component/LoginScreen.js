@@ -12,13 +12,12 @@ function LoginScreen({ navigation }) {
   const message = useSelector((state) => state.logreducer.message);
   useEffect(() => {
     if (isloggedin) {
-      navigation.replace("home");
+      navigation.replace("root");
     }
   }, [isloggedin]);
   const LoginHandler = () => {
     dispatch(TryLogin(email, password));
   };
-  debugger;
   const loader = isloading ? (
     <LoadingScreen />
   ) : (
